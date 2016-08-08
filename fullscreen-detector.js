@@ -17,6 +17,13 @@
 		return false;
 	};
 
+	document.body.addEventListener('mousedown', function(e){
+		console.log({
+			'X': e.clientX,
+			'Y': e.clientY
+		}, e);
+	});
+
 	// Block and block menu descriptions
 	var descriptor = {
 		blocks: [
