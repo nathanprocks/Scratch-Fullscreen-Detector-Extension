@@ -13,15 +13,29 @@
 		return {status: 2, msg: 'Ready'};
 	};
 
+	var fullscreen = false;
+
 	ext.isFullscreen = function() {
-		return false;
+		return fullscreen;
 	};
 
+	/*
+		Fullsceen button
+		X1: 17
+		Y1: 42
+		X2: 41
+		Y2: 61
+	*/
 	document.body.addEventListener('mousedown', function(e){
-		console.log({
-			'X': e.clientX,
-			'Y': e.clientY
-		}, e);
+		// console.log({
+		// 	'X': e.clientX,
+		// 	'Y': e.clientY
+		// }, e);
+
+		if (e.clientX >= 17 && e.clientX <= 41 &&
+			e.clientY >= 42 && e.clientY <= 61) {
+			fullscreen = true;
+		}
 	});
 
 	// Block and block menu descriptions
