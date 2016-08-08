@@ -1,0 +1,1 @@
+# Scratch-Fullscreen-Detector-Extension
