@@ -5,7 +5,9 @@
 
 (function(ext) {
 	// Cleanup function when the extension is unloaded
-	ext._shutdown = function() {};
+	ext._shutdown = function() {
+		document.body.removeEventListener('mousedown', checkFullscreen);
+	};
 
 	// Status reporting code
 	// Use this to report missing hardware, plugin or unsupported browser
@@ -26,7 +28,7 @@
 		X2: 41
 		Y2: 61
 	*/
-	document.body.addEventListener('mousedown', function(e){
+	function checkFullscreen(e) {
 		// console.log({
 		// 	'X': e.clientX,
 		// 	'Y': e.clientY
@@ -36,7 +38,9 @@
 			e.clientY >= 42 && e.clientY <= 61) {
 			fullscreen = true;
 		}
-	});
+	}
+
+	document.body.addEventListener('mousedown', checkFullscreen);
 
 	// Block and block menu descriptions
 	var descriptor = {
