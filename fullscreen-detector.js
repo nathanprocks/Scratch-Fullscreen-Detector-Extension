@@ -7,6 +7,7 @@
 	// Cleanup function when the extension is unloaded
 	ext._shutdown = function() {
 		document.body.removeEventListener('mousedown', checkFullscreen);
+		document.body.removeEventListener('resize', updateExitFullscreenPosition);
 	};
 
 	// Status reporting code
@@ -16,13 +17,16 @@
 	};
 
 	var fullscreen = false;
+	var efsLeft;
+	var efsTop;
+	var S = Scratch.FlashApp.ASobj; // Scratch SWF object
 
 	ext.isFullscreen = function() {
 		return fullscreen;
 	};
 
 	/*
-		Fullsceen button
+		Fullscreen button position
 		X1: 17
 		Y1: 42
 		X2: 41
@@ -33,14 +37,32 @@
 		// 	'X': e.clientX,
 		// 	'Y': e.clientY
 		// }, e);
-
-		if (e.clientX >= 17 && e.clientX <= 41 &&
-			e.clientY >= 42 && e.clientY <= 61) {
-			fullscreen = true;
+		if (fullscreen) {
+			if (e.clientX >= efsLeft && e.clientX <= (efsLeft + 24) &&
+				e.clientY >= efsTop && e.clientY <= (efsTop + 19)) {
+				fullscreen = false;
+			}
+		} else {
+			if (e.clientX >= 17 && e.clientX <= 41 &&
+				e.clientY >= 42 && e.clientY <= 61) {
+				fullscreen = true;
+			}
 		}
 	}
 
+	function updateExitFullscreenPosition(e) {
+		if (S.clientWidth/4+2 > (S.clientHeight-39)/3) {
+			efsLeft = (S.clientWidth - ((S.clientHeight - 39) * 4/3)) / 2 + 23;
+			efsTop = 17;
+		} else {
+			efsLeft = 20;
+			efsTop = (S.clientHeight - ((S.clientWidth + 37) * 3/4)) / 2 + 9;
+		}
+	}
+
+	updateExitFullscreenPosition();
 	document.body.addEventListener('mousedown', checkFullscreen);
+	document.body.addEventListener('resize', updateExitFullscreenPosition);
 
 	// Block and block menu descriptions
 	var descriptor = {
