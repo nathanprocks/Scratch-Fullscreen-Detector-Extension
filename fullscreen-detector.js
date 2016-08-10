@@ -7,7 +7,6 @@
 	// Cleanup function when the extension is unloaded
 	ext._shutdown = function() {
 		document.body.removeEventListener('mousedown', checkFullscreen);
-		document.body.removeEventListener('resize', updateExitFullscreenPosition);
 	};
 
 	// Status reporting code
@@ -37,6 +36,7 @@
 		// 	'X': e.clientX,
 		// 	'Y': e.clientY
 		// }, e);
+		updateExitFullscreenPosition();
 		if (fullscreen) {
 			if (e.clientX >= efsLeft && e.clientX <= (efsLeft + 24) &&
 				e.clientY >= efsTop && e.clientY <= (efsTop + 19)) {
@@ -62,7 +62,6 @@
 
 	updateExitFullscreenPosition();
 	document.body.addEventListener('mousedown', checkFullscreen);
-	document.body.addEventListener('resize', updateExitFullscreenPosition);
 
 	// Block and block menu descriptions
 	var descriptor = {
