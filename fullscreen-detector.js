@@ -24,21 +24,11 @@
 		return fullscreen;
 	};
 
-	/*
-		Fullscreen button position
-		X1: 17
-		Y1: 42
-		X2: 41
-		Y2: 61
-	*/
 	function checkFullscreen(e) {
-		// console.log({
-		// 	'X': e.clientX,
-		// 	'Y': e.clientY
-		// }, e);
 		updateExitFullscreenPosition();
 		if (fullscreen) {
-			if (e.clientX >= efsLeft && e.clientX <= (efsLeft + 24) &&
+			var magicPixel = (S.clientWidth/4+2 > (S.clientHeight-39)/3) ? 1 : 0; // Not so magic :/
+			if (e.clientX >= efsLeft && e.clientX <= (efsLeft + 25 + magicPixel) &&
 				e.clientY >= efsTop && e.clientY <= (efsTop + 19)) {
 				fullscreen = false;
 			}
@@ -53,7 +43,8 @@
 	function updateExitFullscreenPosition(e) {
 		if (S.clientWidth/4+2 > (S.clientHeight-39)/3) {
 			efsLeft = (S.clientWidth - ((S.clientHeight - 39) * 4/3)) / 2 + 23;
-			efsTop = 17;
+			efsLeft += (S.clientWidth + 1) % 2; // This works. Don't touch or it might break :P
+			efsTop = 18;
 		} else {
 			efsLeft = 20;
 			efsTop = (S.clientHeight - ((S.clientWidth + 37) * 3/4)) / 2 + 9;
