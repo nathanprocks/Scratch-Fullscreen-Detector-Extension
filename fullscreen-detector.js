@@ -25,7 +25,7 @@
 	};
 
 	function checkFullscreen(e) {
-		updateExitFullscreenPosition();
+		updateFullscreenButtonPosition();
 		if (fullscreen) {
 			var magicPixel = (S.clientWidth/4+2 > (S.clientHeight-39)/3) ? 1 : 0; // Not so magic :/
 			if (e.clientX >= efsLeft && e.clientX <= (efsLeft + 25 + magicPixel) &&
@@ -40,7 +40,7 @@
 		}
 	}
 
-	function updateExitFullscreenPosition(e) {
+	function updateFullscreenButtonPosition(e) {
 		if (S.clientWidth/4+2 > (S.clientHeight-39)/3) {
 			efsLeft = (S.clientWidth - ((S.clientHeight - 39) * 4/3)) / 2 + 23;
 			efsLeft += (S.clientWidth + 1) % 2; // This works. Don't touch or it might break :P
@@ -51,7 +51,7 @@
 		}
 	}
 
-	updateExitFullscreenPosition();
+	updateFullscreenButtonPosition();
 	document.body.addEventListener('mousedown', checkFullscreen);
 
 	// Block and block menu descriptions
